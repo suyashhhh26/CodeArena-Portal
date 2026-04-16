@@ -1,140 +1,33 @@
-🚀 CodeArena
-Hackathon Discovery, Management & Collaboration Platform
-📌 Overview
+# CodeArena Portal
 
-CodeArena is a centralized platform designed to help students and organizers manage the entire hackathon lifecycle.
+## Overview
+The CodeArena Portal is a platform designed for competitive programming enthusiasts to enhance their problem-solving skills through various coding challenges and contests.
 
-Students can discover hackathons, track deadlines, and find teammates, while organizers can host hackathons, manage participants, evaluate submissions, and automate tasks like certificate generation.
+## Features
+- **Variety of Problems:** A diverse set of problems ranging from easy to hard.
+- **Contests:** Participate in scheduled contests and improve your coding skills.
+- **Leaderboard:** Track your performance against other users in real-time.
 
-🎯 Problem Statement
+## Getting Started
+1. **Sign Up:** Create an account to start participating in challenges.
+2. **Choose Problems:** Browse through the problems and select one to attempt.
+3. **Submit Solutions:** Solve the problems and submit your solutions.
 
-Hackathons are scattered across multiple platforms, making it difficult for students to:
+## Technologies Used
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Node.js, Express
+- **Database:** MongoDB
 
-Discover relevant hackathons
-Track deadlines
-Find teammates
+## Contribution
+Contributions are welcome! Please fork the repository and create a pull request.
 
-Organizers also struggle with:
-
-Managing registrations
-Evaluating submissions
-Generating certificates manually
-💡 Solution
-
-CodeArena solves these problems by providing:
-
-Centralized hackathon discovery
-Team formation system
-Organizer management dashboard
-Automated workflows
-👥 User Roles
-👨‍💻 Student Portal
-Browse hackathons
-Search & filter opportunities
-Save/bookmark hackathons
-Track deadlines
-Create/join teams
-Get recommendations
-🏫 Organizer Portal
-Create and manage hackathons
-View and manage participants
-Accept/reject registrations
-Manage submissions (GitHub, PPT, demo)
-Evaluate projects
-Generate certificates
-Track analytics
-✨ Features
-🔍 Hackathon Discovery
-📅 Deadline Tracking
-👥 Team Finder System
-📊 Organizer Analytics Dashboard
-🧠 AI-Based Recommendations
-📄 Automated Certificate Generation
-📥 Project Submission Portal
-📱 QR-Based Attendance System
-🛠️ Tech Stack
-Frontend
-React.js
-Tailwind CSS
-Framer Motion
-Backend
-Node.js
-Express.js
-Database
-MySQL
-Tools
-VS Code
-Postman
-Git & GitHub
-📂 Project Structure
-CodeArena/
-│
-├── frontend/
-│   ├── pages/
-│   ├── components/
-│   ├── styles/
-│
-├── backend/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── middleware/
-│
-├── database/
-│   └── schema.sql
-│
-└── README.md
-⚙️ Installation & Setup
-1. Clone the Repository
-git clone https://github.com/your-username/codearena.git
-cd codearena
-2. Install Dependencies
-npm install
-3. Setup Environment Variables
-
-Create a .env file:
-
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=yourpassword
-DB_NAME=codearena
-JWT_SECRET=your_secret_key
-4. Run the Server
-npm start
-📸 Screenshots
-Landing Page
-Dashboard
-Hackathon Listings
-Team Finder
-(Add your screenshots here)
-🧪 Testing
-
-The system was tested using multiple test cases including:
-
-Authentication
-Hackathon CRUD operations
-Team formation
-Submission handling
-Certificate generation
-
-All functionalities performed successfully.
-
-🚀 Future Scope
-AI Resume Analyzer
-AI Team Matching
-Mobile App
-Blockchain Certificates
-Real-time judge scoring
-🤝 Contribution
-
-Contributions are welcome!
-Feel free to fork this repository and submit a pull request.
-
-📜 License
-
+## License
 This project is licensed under the MIT License.
 
-🙌 Acknowledgement
+## Contact
+For any inquiries, please reach out to [your-email@example.com].
 
-Developed as part of academic project to simplify hackathon participation and management.
+## Last Updated
+This document was last updated on **2026-04-16 21:12:31 UTC**.
+
+---
