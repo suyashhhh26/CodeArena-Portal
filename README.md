@@ -1,128 +1,140 @@
-# 🏟️ CodeArena
+🚀 CodeArena
+Hackathon Discovery, Management & Collaboration Platform
+📌 Overview
 
-A full-stack competitive coding platform built with **Node.js**, **Express**, **MySQL**, and vanilla **HTML / CSS / JavaScript**.
+CodeArena is a centralized platform designed to help students and organizers manage the entire hackathon lifecycle.
 
----
+Students can discover hackathons, track deadlines, and find teammates, while organizers can host hackathons, manage participants, evaluate submissions, and automate tasks like certificate generation.
 
-## 📁 Project Structure
+🎯 Problem Statement
 
-```
-CodeArenaa/
-├── server.js                  # Express entry point
-├── package.json               # Dependencies & scripts
-├── .env                       # Environment variables
-├── .gitignore
+Hackathons are scattered across multiple platforms, making it difficult for students to:
+
+Discover relevant hackathons
+Track deadlines
+Find teammates
+
+Organizers also struggle with:
+
+Managing registrations
+Evaluating submissions
+Generating certificates manually
+💡 Solution
+
+CodeArena solves these problems by providing:
+
+Centralized hackathon discovery
+Team formation system
+Organizer management dashboard
+Automated workflows
+👥 User Roles
+👨‍💻 Student Portal
+Browse hackathons
+Search & filter opportunities
+Save/bookmark hackathons
+Track deadlines
+Create/join teams
+Get recommendations
+🏫 Organizer Portal
+Create and manage hackathons
+View and manage participants
+Accept/reject registrations
+Manage submissions (GitHub, PPT, demo)
+Evaluate projects
+Generate certificates
+Track analytics
+✨ Features
+🔍 Hackathon Discovery
+📅 Deadline Tracking
+👥 Team Finder System
+📊 Organizer Analytics Dashboard
+🧠 AI-Based Recommendations
+📄 Automated Certificate Generation
+📥 Project Submission Portal
+📱 QR-Based Attendance System
+🛠️ Tech Stack
+Frontend
+React.js
+Tailwind CSS
+Framer Motion
+Backend
+Node.js
+Express.js
+Database
+MySQL
+Tools
+VS Code
+Postman
+Git & GitHub
+📂 Project Structure
+CodeArena/
+│
+├── frontend/
+│   ├── pages/
+│   ├── components/
+│   ├── styles/
 │
 ├── backend/
-│   ├── config/
-│   │   ├── config.js          # Centralised app config
-│   │   └── db.js              # MySQL connection pool
-│   ├── middleware/
-│   │   ├── auth.js            # JWT protect & authorise
-│   │   └── errorHandler.js    # Global error middleware
-│   ├── models/
-│   │   ├── User.js            # User data-access layer
-│   │   ├── Problem.js         # Problem data-access layer
-│   │   └── Submission.js      # Submission data-access layer
+│   ├── routes/
 │   ├── controllers/
-│   │   ├── authController.js  # Register / Login / Me
-│   │   ├── problemController.js  # CRUD for problems
-│   │   └── submissionController.js  # Submit & retrieve
-│   └── routes/
-│       ├── authRoutes.js
-│       ├── problemRoutes.js
-│       └── submissionRoutes.js
+│   ├── models/
+│   ├── middleware/
 │
 ├── database/
-│   ├── schema.sql             # Table definitions
-│   └── seed.sql               # Sample data
+│   └── schema.sql
 │
-└── frontend/
-    ├── pages/
-    │   ├── index.html         # Landing page
-    │   ├── login.html         # Login form
-    │   ├── register.html      # Registration form
-    │   ├── problems.html      # Problem listing
-    │   ├── editor.html        # Code editor + problem view
-    │   └── leaderboard.html   # Leaderboard
-    ├── css/
-    │   ├── style.css          # Global styles & design system
-    │   ├── auth.css           # Auth page styles
-    │   └── editor.css         # Editor page styles
-    └── js/
-        ├── app.js             # Shared utilities & API wrapper
-        ├── auth.js            # Login / Register logic
-        ├── problems.js        # Problem list + filtering
-        ├── editor.js          # Editor + submission logic
-        └── leaderboard.js     # Leaderboard rendering
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- **Node.js** v18+
-- **MySQL** 8.0+
-
-### 1. Install dependencies
-```bash
+└── README.md
+⚙️ Installation & Setup
+1. Clone the Repository
+git clone https://github.com/your-username/codearena.git
+cd codearena
+2. Install Dependencies
 npm install
-```
+3. Setup Environment Variables
 
-### 2. Set up the database
-```sql
--- Run in MySQL shell or client:
-source database/schema.sql;
-source database/seed.sql;
-```
+Create a .env file:
 
-### 3. Configure environment
-Edit `.env` with your MySQL credentials and a strong JWT secret.
-
-### 4. Start the server
-```bash
-# Development (auto-reload)
-npm run dev
-
-# Production
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=codearena
+JWT_SECRET=your_secret_key
+4. Run the Server
 npm start
-```
+📸 Screenshots
+Landing Page
+Dashboard
+Hackathon Listings
+Team Finder
+(Add your screenshots here)
+🧪 Testing
 
-Visit **http://localhost:3000/pages/index.html**
+The system was tested using multiple test cases including:
 
----
+Authentication
+Hackathon CRUD operations
+Team formation
+Submission handling
+Certificate generation
 
-## 🔌 API Endpoints
+All functionalities performed successfully.
 
-| Method | Endpoint              | Auth     | Description             |
-|--------|-----------------------|----------|--------------------------|
-| POST   | `/api/auth/register`  | Public   | Create a new account     |
-| POST   | `/api/auth/login`     | Public   | Log in & receive JWT     |
-| GET    | `/api/auth/me`        | Bearer   | Get current user profile |
-| GET    | `/api/problems`       | Public   | List all problems        |
-| GET    | `/api/problems/:id`   | Public   | Get problem details      |
-| POST   | `/api/problems`       | Admin    | Create a problem         |
-| PUT    | `/api/problems/:id`   | Admin    | Update a problem         |
-| DELETE | `/api/problems/:id`   | Admin    | Delete a problem         |
-| POST   | `/api/submissions`    | Bearer   | Submit a solution        |
-| GET    | `/api/submissions/my` | Bearer   | List my submissions      |
-| GET    | `/api/submissions/:id`| Bearer   | Get submission details   |
+🚀 Future Scope
+AI Resume Analyzer
+AI Team Matching
+Mobile App
+Blockchain Certificates
+Real-time judge scoring
+🤝 Contribution
 
----
+Contributions are welcome!
+Feel free to fork this repository and submit a pull request.
 
-## 🛠️ Tech Stack
+📜 License
 
-| Layer      | Technology                |
-|------------|---------------------------|
-| Runtime    | Node.js                   |
-| Framework  | Express 4                 |
-| Database   | MySQL 8 (mysql2 driver)   |
-| Auth       | JWT (jsonwebtoken + bcryptjs) |
-| Frontend   | HTML5, CSS3, Vanilla JS   |
+This project is licensed under the MIT License.
 
----
+🙌 Acknowledgement
 
-## 📄 License
-
-ISC
+Developed as part of academic project to simplify hackathon participation and management.
