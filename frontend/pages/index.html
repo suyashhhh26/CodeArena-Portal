@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CodeArena — Discover hackathons, track deadlines, save opportunities, and find your perfect team. One platform for all hackathon needs." />
+  <title>CodeArena — Discover Hackathons & Build Teams</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/landing.css" />
+</head>
+<body>
+
+  <!-- ─── Navbar ─────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand">
+      <span>&lt;/&gt;</span> CodeArena
+    </a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html" id="nav-discover">Discover</a></li>
+      <li><a href="/pages/team-finder.html" id="nav-teams">Team Finder</a></li>
+      <li><a href="/pages/dashboard.html" id="nav-dashboard">Dashboard</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <a href="/pages/login.html" class="btn btn--ghost btn--sm" id="nav-login">Log In</a>
+      <a href="/pages/register.html" class="btn btn--primary btn--sm" id="nav-signup">Sign Up</a>
+    </div>
+    <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <!-- ─── Hero ───────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grid"></div>
+
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        🚀 1000+ Hackathons Listed &amp; Growing
+      </div>
+
+      <p class="hero__tagline">Your Hackathon Command Center</p>
+
+      <h1 class="hero__title">
+        <span class="gradient-text">Discover. Track.</span><br>
+        <span class="line2">Build Your Team.</span>
+      </h1>
+
+      <p class="hero__description">
+        Stop scrolling through Devpost, Discord, and college websites. CodeArena aggregates the best hackathons in one place — with deadline tracking, team formation, and personalized recommendations.
+      </p>
+
+      <div class="hero__actions">
+        <a href="/pages/hackathons.html" class="btn btn--primary btn--lg" id="hero-discover-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Explore Hackathons
+        </a>
+        <a href="/pages/register.html" class="btn btn--secondary btn--lg" id="hero-signup-btn">
+          Get Started Free →
+        </a>
+      </div>
+
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-num">1,<span>200</span>+</div>
+          <div class="hero__stat-label">Hackathons Listed</div>
+        </div>
+        <div>
+          <div class="hero__stat-num"><span>50</span>K+</div>
+          <div class="hero__stat-label">Registered Users</div>
+        </div>
+        <div>
+          <div class="hero__stat-num"><span>₹10</span>Cr+</div>
+          <div class="hero__stat-label">Prize Money Tracked</div>
+        </div>
+        <div>
+          <div class="hero__stat-num"><span>8</span>K+</div>
+          <div class="hero__stat-label">Teams Formed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Features ───────────────────────────────────── -->
+  <section class="features-section">
+    <div class="container">
+      <p class="section-label">Why CodeArena?</p>
+      <h2 class="section-title">Everything you need to win hackathons</h2>
+      <p class="section-subtitle">From discovery to team formation, we've got every step of your hackathon journey covered.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card__icon feature-card__icon--cyan">🔍</div>
+          <h3 class="feature-card__title">Smart Discovery</h3>
+          <p class="feature-card__desc">Filter by theme, mode, prize pool, difficulty, and date. Never miss an opportunity again with our smart aggregation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon feature-card__icon--purple">⏰</div>
+          <h3 class="feature-card__title">Deadline Tracking</h3>
+          <p class="feature-card__desc">Save hackathons and track real-time countdowns for registration deadlines. Get reminders before it's too late.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon feature-card__icon--green">👥</div>
+          <h3 class="feature-card__title">Team Finder</h3>
+          <p class="feature-card__desc">Post a recruiting listing or browse teams looking for your skills. ML engineer? Designer? Full-stack dev? Find your match.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon feature-card__icon--yellow">📊</div>
+          <h3 class="feature-card__title">Personalized Dashboard</h3>
+          <p class="feature-card__desc">Your saved hackathons, upcoming deadlines, team activity, and recommendations — all in one clean dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Featured Hackathons ────────────────────────── -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="featured-section__header">
+        <div>
+          <p class="section-label">Hot Right Now</p>
+          <h2 class="section-title" style="margin-bottom:0">Featured Hackathons</h2>
+        </div>
+        <a href="/pages/hackathons.html" class="btn btn--ghost">View All →</a>
+      </div>
+
+      <div class="grid grid--3" id="featured-hackathons">
+        <!-- Injected by JS -->
+        <div class="hack-card" style="animation-delay:0.1s">
+          <div class="hack-card__banner">
+            <span class="hack-card__organizer-badge">HackIndia Foundation</span>
+            <span class="hack-card__emoji">🇮🇳</span>
+          </div>
+          <div class="hack-card__body">
+            <h3 class="hack-card__title">HackIndia 2026</h3>
+            <div class="hack-card__tags">
+              <span class="badge badge--cyan">AI/ML</span>
+              <span class="badge badge--purple">Hybrid</span>
+              <span class="badge badge--green">Open</span>
+            </div>
+            <div class="hack-card__meta">
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/></svg>
+                India's largest student hackathon with AI/ML tracks
+              </div>
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                ₹50,00,000 Prize Pool
+              </div>
+            </div>
+          </div>
+          <div class="hack-card__footer">
+            <div class="hack-card__deadline">Closes: <span>May 15</span></div>
+            <a href="/pages/hackathons.html" class="btn btn--primary btn--sm">View →</a>
+          </div>
+        </div>
+
+        <div class="hack-card" style="animation-delay:0.2s">
+          <div class="hack-card__banner">
+            <span class="hack-card__organizer-badge">UC Berkeley AI Club</span>
+            <span class="hack-card__emoji">🤖</span>
+          </div>
+          <div class="hack-card__body">
+            <h3 class="hack-card__title">BerkeleyAI Hack</h3>
+            <div class="hack-card__tags">
+              <span class="badge badge--cyan">AI</span>
+              <span class="badge badge--purple">Online</span>
+              <span class="badge badge--yellow">Advanced</span>
+            </div>
+            <div class="hack-card__meta">
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/></svg>
+                Build responsible AI with Anthropic & OpenAI sponsorship
+              </div>
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                $25,000 Prize Pool
+              </div>
+            </div>
+          </div>
+          <div class="hack-card__footer">
+            <div class="hack-card__deadline">Closes: <span>May 1</span></div>
+            <a href="/pages/hackathons.html" class="btn btn--primary btn--sm">View →</a>
+          </div>
+        </div>
+
+        <div class="hack-card" style="animation-delay:0.3s">
+          <div class="hack-card__banner">
+            <span class="hack-card__organizer-badge">NASA</span>
+            <span class="hack-card__emoji">🚀</span>
+          </div>
+          <div class="hack-card__body">
+            <h3 class="hack-card__title">NASA Space Apps Challenge</h3>
+            <div class="hack-card__tags">
+              <span class="badge badge--cyan">Space</span>
+              <span class="badge badge--purple">Online</span>
+              <span class="badge badge--green">Open</span>
+            </div>
+            <div class="hack-card__meta">
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/></svg>
+                World's largest hackathon using NASA open data
+              </div>
+              <div class="hack-card__meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                NASA Internship Opportunities
+              </div>
+            </div>
+          </div>
+          <div class="hack-card__footer">
+            <div class="hack-card__deadline">Closes: <span>Sep 30</span></div>
+            <a href="/pages/hackathons.html" class="btn btn--primary btn--sm">View →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─────────────────────────────────────────── -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-banner">
+        <h2 class="cta-banner__title">Ready to find your next hackathon?</h2>
+        <p class="cta-banner__desc">Join thousands of developers and students who use CodeArena to stay on top of hackathon opportunities.</p>
+        <div class="cta-banner__actions">
+          <a href="/pages/register.html" class="btn btn--primary btn--lg" id="cta-signup-btn">Create Free Account</a>
+          <a href="/pages/hackathons.html" class="btn btn--ghost btn--lg">Browse Hackathons</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__brand">&lt;/&gt; CodeArena</div>
+    <p class="footer__copy">© 2026 CodeArena. Built for hackers, by hackers.</p>
+    <nav class="footer__links">
+      <a href="/pages/hackathons.html">Discover</a>
+      <a href="/pages/team-finder.html">Teams</a>
+      <a href="/pages/login.html">Login</a>
+    </nav>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/landing.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

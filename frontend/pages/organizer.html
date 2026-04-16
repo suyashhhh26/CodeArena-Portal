@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Organizer Dashboard — host hackathons and manage participants on CodeArena." />
+  <title>Organizer Portal — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena <span class="badge badge--cyan" style="margin-left:6px;font-size:0.6rem">Organizer</span></a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html">Discover</a></li>
+      <li><a href="/pages/organizer.html" class="active">Organizer Portal</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <button class="btn btn--ghost btn--sm" id="organizer-logout-btn">Log Out</button>
+    </div>
+  </nav>
+
+  <!-- Auth/role gate -->
+  <div id="auth-gate" class="empty-state hidden" style="padding-top:180px">
+    <div class="empty-state__icon">🔐</div>
+    <h3 class="empty-state__title">Organizer Portal Access Required</h3>
+    <p>Please log in as an organizer to access this portal.</p>
+    <a href="/pages/login.html" class="btn btn--primary" style="margin-top:16px">Log In</a>
+  </div>
+
+  <div class="dashboard-layout" id="organizer-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar__profile">
+        <div class="sidebar__avatar" id="org-avatar" style="background:linear-gradient(135deg,#00ffe1,#a855f7)">O</div>
+        <div>
+          <div class="sidebar__name" id="org-username">Organizer</div>
+          <div class="sidebar__role">Hackathon Host</div>
+        </div>
+      </div>
+      <nav class="sidebar__nav">
+        <span class="sidebar__section-label">Management</span>
+        <a href="#overview" class="sidebar__link active" id="otab-overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Overview
+        </a>
+        <a href="#my-hackathons" class="sidebar__link" id="otab-hackathons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Events
+        </a>
+        <a href="#participants" class="sidebar__link" id="otab-participants">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Participants
+        </a>
+        <a href="#submissions" class="sidebar__link" id="otab-submissions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          Submissions
+        </a>
+        <a href="#evaluation" class="sidebar__link" id="otab-eval">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+          Judge & Eval
+        </a>
+        <a href="#results" class="sidebar__link" id="otab-results">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          Results
+        </a>
+        <a href="#attendance" class="sidebar__link" id="otab-attendance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+          QR Attendance
+        </a>
+        <a href="#add-event" class="sidebar__link" id="otab-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Event
+        </a>
+
+        <span class="sidebar__section-label">Settings</span>
+        <a href="#profile" class="sidebar__link" id="otab-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Org Profile
+        </a>
+      </nav>
+    </aside>
+
+    <main class="dashboard-main">
+
+      <!-- Overview -->
+      <div id="osection-overview">
+        <h2 style="margin-bottom:24px;font-size:1.4rem">Organizer Analytics Dashboard</h2>
+        
+        <div class="stat-cards" id="org-stats">
+          <div class="stat-card">
+            <div class="stat-card__label">Total Registrations</div>
+            <div class="stat-card__value cyan" id="org-stat-participants">0</div>
+            <div style="font-size:0.75rem; color:var(--clr-text-400); margin-top:4px">↑ 12% from last month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Project Submissions</div>
+            <div class="stat-card__value purple" id="org-stat-subs">0</div>
+            <div style="font-size:0.75rem; color:var(--clr-text-400); margin-top:4px">85% submission rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Active Hackathons</div>
+            <div class="stat-card__value green" id="org-stat-hacks">0</div>
+            <div style="font-size:0.75rem; color:var(--clr-text-400); margin-top:4px">Live listings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__label">Total Prize Pool</div>
+            <div class="stat-card__value yellow" id="org-stat-total-prize">₹2.5L</div>
+            <div style="font-size:0.75rem; color:var(--clr-text-400); margin-top:4px">Sponsored value</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-top:32px">
+            <div class="card" style="padding:24px">
+                <h3 style="font-size:1rem; margin-bottom:20px">Participation by College</h3>
+                <div style="height:200px; display:flex; align-items:flex-end; gap:16px; padding-bottom:20px; border-bottom:1px solid var(--clr-border)">
+                    <div style="flex:1; background:var(--clr-cyan-glow); height:80%; border-radius:4px 4px 0 0; position:relative" title="IIT Bombay">
+                        <span style="position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:0.65rem; white-space:nowrap">IIT B</span>
+                    </div>
+                    <div style="flex:1; background:var(--clr-purple-glow); height:60%; border-radius:4px 4px 0 0; position:relative" title="BITS Pilani">
+                         <span style="position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:0.65rem; white-space:nowrap">BITS</span>
+                    </div>
+                    <div style="flex:1; background:var(--clr-cyan-glow); height:90%; border-radius:4px 4px 0 0; position:relative" title="NIT Trichy">
+                         <span style="position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:0.65rem; white-space:nowrap">NIT T</span>
+                    </div>
+                    <div style="flex:1; background:var(--clr-purple-glow); height:40%; border-radius:4px 4px 0 0; position:relative" title="VIT Vellore">
+                         <span style="position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:0.65rem; white-space:nowrap">VIT</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="padding:24px">
+                <h3 style="font-size:1rem; margin-bottom:20px">Skill Distribution</h3>
+                <div style="display:flex; flex-direction:column; gap:12px">
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem"><span>Frontend</span><span>45%</span></div>
+                    <div style="height:6px; background:var(--clr-bg-600); border-radius:3px"><div style="width:45%; height:100%; background:var(--clr-cyan); border-radius:3px"></div></div>
+                    
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem"><span>Backend</span><span>30%</span></div>
+                    <div style="height:6px; background:var(--clr-bg-600); border-radius:3px"><div style="width:30%; height:100%; background:var(--clr-purple); border-radius:3px"></div></div>
+                    
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem"><span>AI/ML</span><span>25%</span></div>
+                    <div style="height:6px; background:var(--clr-bg-600); border-radius:3px"><div style="width:25%; height:100%; background:var(--clr-yellow); border-radius:3px"></div></div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+      <!-- My Hackathons Table -->
+      <div id="osection-hackathons" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">My Hosted Hackathons</h2>
+          <button class="btn btn--primary btn--sm" id="org-add-hack-btn">+ Create New</button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Mode</th>
+                <th>Status</th>
+                <th>Reg. Ends</th>
+                <th>Participants</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="org-hack-tbody">
+              <tr><td colspan="6" style="text-align:center;color:var(--clr-text-400);padding:24px">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Participants Management -->
+      <div id="osection-participants" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">Participant Management</h2>
+          <select id="op-hackathon-filter" class="form-select" style="max-width:250px"></select>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>College</th>
+                <th>Skills</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="org-participants-tbody">
+              <tr><td colspan="5" style="text-align:center;color:var(--clr-text-400);padding:24px">Select a hackathon to view participants</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Submissions -->
+      <div id="osection-submissions" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">Project Submissions</h2>
+          <select id="os-hackathon-filter" class="form-select" style="max-width:250px"></select>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Project</th>
+                <th>Links</th>
+                <th>Submitted</th>
+                <th>Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="org-submissions-tbody">
+              <tr><td colspan="6" style="text-align:center;color:var(--clr-text-400);padding:24px">Select a hackathon to view submissions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Evaluation -->
+      <div id="osection-eval" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">Evaluation Dashboard</h2>
+          <button class="btn btn--secondary btn--sm" id="btn-add-criterion">+ Add Criterion</button>
+        </div>
+        
+        <div class="card" style="margin-bottom:24px">
+           <h3 style="font-size:1rem; margin-bottom:16px">Scoring Criteria & Weights</h3>
+           <div class="table-wrapper">
+             <table>
+               <thead>
+                 <tr><th>Criteria Name</th><th>Weight (%)</th><th>Description</th></tr>
+               </thead>
+               <tbody id="org-criteria-tbody">
+                 <tr><td>Technical Complexity</td><td>40%</td><td>Use of advanced technologies and code quality</td></tr>
+                 <tr><td>Innovation</td><td>30%</td><td>Originality of the idea</td></tr>
+                 <tr><td>UX/UI Design</td><td>20%</td><td>Design aesthetics and user flow</td></tr>
+                 <tr><td>Pitch/Demo</td><td>10%</td><td>Clarity of presentation</td></tr>
+               </tbody>
+             </table>
+           </div>
+        </div>
+
+        <div class="card">
+           <h3 style="font-size:1rem; margin-bottom:16px">Judges</h3>
+           <div style="display:flex; gap:12px; margin-bottom:16px">
+             <input type="email" id="judge-email" class="form-input" placeholder="judge@example.com" style="max-width:300px" />
+             <button class="btn btn--primary btn--sm" id="btn-invite-judge">Invite Judge</button>
+           </div>
+           <div id="judge-list" style="display:flex; gap:10px; flex-wrap:wrap">
+             <span class="badge badge--purple">Admin (Internal)</span>
+           </div>
+        </div>
+      </div>
+
+      <!-- QR Attendance -->
+      <div id="osection-attendance" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">QR Attendance System</h2>
+        </div>
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px">
+            <div class="card" style="text-align:center; padding:32px">
+                <h3 style="font-size:1rem; margin-bottom:20px">Check-in Terminal</h3>
+                <div style="width:200px; height:200px; background:#fff; margin:0 auto; padding:10px; border-radius:12px">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=codearena-checkin" alt="Checkin QR" style="width:100%" />
+                </div>
+                <p style="margin-top:20px; color:var(--clr-text-400)">Participants can scan this QR to mark their presence at the venue.</p>
+                <button class="btn btn--primary" style="margin-top:16px">Download QR Poster</button>
+            </div>
+            
+            <div class="card" style="padding:24px">
+                <h3 style="font-size:1rem; margin-bottom:16px">Today's Attendance</h3>
+                <div class="table-wrapper" style="max-height:300px">
+                    <table>
+                        <thead>
+                            <tr><th>User</th><th>Time</th><th>Method</th></tr>
+                        </thead>
+                        <tbody id="org-attendance-tbody">
+                            <tr><td colspan="3" style="text-align:center; color:var(--clr-text-400)">No check-ins yet today.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="osection-results" class="hidden">
+         <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">Result Generation</h2>
+          <select id="or-hackathon-filter" class="form-select" style="max-width:250px"></select>
+        </div>
+        
+        <div class="card" style="margin-bottom:24px">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px">
+             <h3 style="font-size:1rem">Final Leaderboard</h3>
+             <div style="display:flex; gap:10px">
+                <button class="btn btn--secondary btn--sm" id="btn-calc-leaderboard">Calculate Rank</button>
+                <button class="btn btn--primary btn--sm" id="btn-gen-certs">AI Certificate Generation</button>
+             </div>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>User</th>
+                  <th>Project</th>
+                  <th>Score</th>
+                  <th>Award</th>
+                </tr>
+              </thead>
+              <tbody id="org-leaderboard-tbody">
+                <tr><td colspan="5" style="text-align:center;color:var(--clr-text-400);padding:24px">Select a hackathon to generate leaderboard</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Host Hackathon Form -->
+      <div id="osection-add" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:24px">
+          <h2 class="dash-section__title" id="org-form-title">Host New Hackathon</h2>
+        </div>
+        <form class="admin-form" id="org-hack-form">
+          <input type="hidden" id="of-id" />
+          <div class="admin-form__grid">
+            <div class="form-group" style="grid-column:span 2">
+              <label>Event Name *</label>
+              <input type="text" id="of-title" class="form-input" required placeholder="University AI Hack 2026" />
+            </div>
+            <div class="form-group">
+              <label>Theme</label>
+              <input type="text" id="of-theme" class="form-input" placeholder="AI / Sustainablity" />
+            </div>
+            <div class="form-group">
+              <label>Mode</label>
+              <select id="of-mode" class="form-select">
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Registration Deadline *</label>
+              <input type="datetime-local" id="of-reg-end" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label>Prize Pool</label>
+              <input type="text" id="of-prize" class="form-input" placeholder="₹50,000" />
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Description *</label>
+              <textarea id="of-desc" class="form-textarea" rows="4" required placeholder="Provide event details, rules, and schedule…"></textarea>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <button type="submit" class="btn btn--primary" id="of-submit">Publish Hackathon</button>
+            <button type="button" class="btn btn--ghost" id="of-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/organizer.js"></script>
+</body>
+</html>

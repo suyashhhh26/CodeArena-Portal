@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Find teammates for hackathons based on skills and interests. Post or browse team recruitment listings on CodeArena." />
+  <title>Team Finder — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/team.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena</a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html">Discover</a></li>
+      <li><a href="/pages/team-finder.html" class="active">Team Finder</a></li>
+      <li><a href="/pages/dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <a href="/pages/login.html" class="btn btn--ghost btn--sm" id="nav-login">Log In</a>
+      <a href="/pages/register.html" class="btn btn--primary btn--sm" id="nav-signup">Sign Up</a>
+    </div>
+    <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-header__label section-label">Collaborate</p>
+    <h1 class="page-header__title">Team Finder</h1>
+    <p class="page-header__sub">Find teammates or recruit for your hackathon project. Filter by skills and hackathon.</p>
+  </div>
+
+  <div class="team-layout">
+    <!-- ─── Controls ─── -->
+    <div class="team-controls">
+      <div class="team-controls__search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="team-search" class="form-input" placeholder="Search by title, skills, hackathon…" />
+      </div>
+      <div class="team-controls__filters">
+        <input type="text" id="team-skill-filter" class="form-input" placeholder="Filter by skill (e.g. React)" style="max-width:200px" />
+        <select id="team-status-filter" class="form-select" style="max-width:140px">
+          <option value="open">Open Teams</option>
+          <option value="">All Teams</option>
+          <option value="full">Full Teams</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+      <button class="btn btn--primary" id="create-post-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Create Team Post
+      </button>
+    </div>
+
+    <!-- ─── Posts grid ─── -->
+    <div class="grid grid--2" id="team-posts-grid">
+      <div class="loading-skeleton" style="height:220px"></div>
+      <div class="loading-skeleton" style="height:220px"></div>
+      <div class="loading-skeleton" style="height:220px"></div>
+      <div class="loading-skeleton" style="height:220px"></div>
+    </div>
+    <div id="team-no-results" class="empty-state hidden">
+      <div class="empty-state__icon">👥</div>
+      <h3 class="empty-state__title">No team posts found</h3>
+      <p>Be the first to create a team post for this hackathon!</p>
+      <button class="btn btn--primary" id="create-post-btn-2" style="margin-top:16px">Create Team Post</button>
+    </div>
+  </div>
+
+  <!-- ─── Create Team Post Modal ─── -->
+  <div class="modal-overlay" id="create-post-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Create Team Post</h3>
+        <button class="modal__close" id="close-create-modal" aria-label="Close">×</button>
+      </div>
+      <div class="modal__body">
+        <div class="form-group">
+          <label>Post Title *</label>
+          <input type="text" id="post-title" class="form-input" placeholder="e.g. Looking for ML Engineer for HackIndia" />
+        </div>
+        <div class="form-group">
+          <label>Hackathon (optional)</label>
+          <select id="post-hackathon" class="form-select">
+            <option value="">Select a hackathon…</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="post-description" class="form-textarea" placeholder="Tell people about your team, what you're building, and who you're looking for…"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Skills Needed <span style="color:var(--clr-text-400);font-size:0.8rem">(comma separated)</span></label>
+          <input type="text" id="post-skills" class="form-input" placeholder="React, Python, UI/UX, ML…" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Max Team Size</label>
+            <select id="post-team-size" class="form-select">
+              <option value="2">2 members</option>
+              <option value="3">3 members</option>
+              <option value="4" selected>4 members</option>
+              <option value="5">5 members</option>
+              <option value="6">6 members</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Contact Info</label>
+            <input type="text" id="post-contact" class="form-input" placeholder="Discord, email, etc." />
+          </div>
+        </div>
+        <div id="create-post-error" class="form-error hidden"></div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="cancel-create-modal">Cancel</button>
+        <button class="btn btn--primary" id="submit-post-btn">
+          <span>Create Post</span>
+          <span class="spinner hidden" id="post-spinner"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Request to Join Modal ─── -->
+  <div class="modal-overlay" id="request-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Request to Join</h3>
+        <button class="modal__close" id="close-request-modal">×</button>
+      </div>
+      <div class="modal__body">
+        <p style="color:var(--clr-text-300);font-size:0.9rem">Joining: <strong id="request-post-title" style="color:var(--clr-cyan)"></strong></p>
+        <div class="form-group" style="margin-top:12px">
+          <label>Message (optional)</label>
+          <textarea id="request-message" class="form-textarea" placeholder="Introduce yourself, your skills, and why you'd be a great fit…"></textarea>
+        </div>
+        <div id="request-error" class="form-error hidden"></div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="cancel-request-modal">Cancel</button>
+        <button class="btn btn--purple" id="submit-request-btn">
+          <span>Send Request</span>
+          <span class="spinner hidden" id="request-spinner"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/team.js"></script>
+</body>
+</html>

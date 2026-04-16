@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Admin dashboard — manage hackathons, view analytics, and oversee CodeArena platform activity." />
+  <title>Admin Dashboard — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena <span class="badge badge--purple" style="margin-left:6px;font-size:0.6rem">Admin</span></a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html">Discover</a></li>
+      <li><a href="/pages/admin.html" class="active">Admin</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <button class="btn btn--ghost btn--sm" id="admin-logout-btn">Log Out</button>
+    </div>
+  </nav>
+
+  <!-- Auth/role gate -->
+  <div id="auth-gate" class="empty-state hidden" style="padding-top:180px">
+    <div class="empty-state__icon">🔒</div>
+    <h3 class="empty-state__title">Admin Access Required</h3>
+    <p>This page is restricted to platform administrators.</p>
+    <a href="/pages/login.html" class="btn btn--primary" style="margin-top:16px">Log In</a>
+  </div>
+
+  <div class="dashboard-layout" id="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar__profile">
+        <div class="sidebar__avatar" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">A</div>
+        <div>
+          <div class="sidebar__name" id="admin-name">Admin</div>
+          <div class="sidebar__role">Administrator</div>
+        </div>
+      </div>
+      <nav class="sidebar__nav">
+        <span class="sidebar__section-label">Platform</span>
+        <a href="#overview" class="sidebar__link active" id="atab-overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Overview
+        </a>
+        <a href="#hackathons" class="sidebar__link" id="atab-hackathons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Hackathons
+        </a>
+        <a href="#users" class="sidebar__link" id="atab-users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Students
+        </a>
+        <a href="#organizers" class="sidebar__link" id="atab-organizers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Organizers
+        </a>
+        <span class="sidebar__section-label">Actions</span>
+        <a href="#add-hackathon" class="sidebar__link" id="atab-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Hackathon
+        </a>
+      </nav>
+    </aside>
+
+    <main class="dashboard-main">
+
+      <!-- ─ Overview ─ -->
+      <div id="asection-overview">
+        <h2 style="margin-bottom:20px;font-size:1.2rem">Platform Overview</h2>
+        <div class="stat-cards" id="admin-stats">
+          <div class="stat-card"><div class="stat-card__label">Total Users</div><div class="stat-card__value cyan" id="admin-stat-users">—</div></div>
+          <div class="stat-card"><div class="stat-card__label">Hackathons</div><div class="stat-card__value purple" id="admin-stat-hacks">—</div></div>
+          <div class="stat-card"><div class="stat-card__label">Open Teams</div><div class="stat-card__value green" id="admin-stat-teams">—</div></div>
+          <div class="stat-card"><div class="stat-card__label">Upcoming</div><div class="stat-card__value" id="admin-stat-upcoming">—</div></div>
+        </div>
+        <div style="margin-top:28px">
+          <div class="dash-section__header" style="margin-bottom:16px">
+            <h2 class="dash-section__title">Status Breakdown</h2>
+          </div>
+          <div id="admin-status-breakdown" style="display:flex;gap:16px;flex-wrap:wrap"></div>
+        </div>
+      </div>
+
+      <!-- ─ Hackathons table ─ -->
+      <div id="asection-hackathons" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">All Hackathons</h2>
+          <div style="display:flex;gap:12px">
+            <button class="btn btn--secondary btn--sm" id="admin-sync-unstop-btn" style="background-color:var(--clr-purple);color:white;border:none">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+              Sync with Unstop
+            </button>
+            <button class="btn btn--primary btn--sm" id="admin-add-hack-btn">+ Add New</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Organizer</th>
+                <th>Mode</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Prize</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-hack-tbody">
+              <tr><td colspan="8" style="text-align:center;color:var(--clr-text-400);padding:24px">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ Users table ─ -->
+      <div id="asection-users" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">All Students</h2>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Username</th><th>Email</th><th>Skills</th><th>Joined</th></tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <tr><td colspan="5" style="text-align:center;color:var(--clr-text-400);padding:24px">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ Organizers table ─ -->
+      <div id="asection-organizers" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:20px">
+          <h2 class="dash-section__title">All Organizers</h2>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Org Name</th><th>Admin User</th><th>Verification</th><th>Joined</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="admin-orgs-tbody">
+              <tr><td colspan="6" style="text-align:center;color:var(--clr-text-400);padding:24px">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─ Add / Edit Hackathon Form ─ -->
+      <div id="asection-add" class="hidden">
+        <div class="dash-section__header" style="margin-bottom:24px">
+          <h2 class="dash-section__title" id="hack-form-title">Add New Hackathon</h2>
+        </div>
+        <form class="admin-form" id="hack-form">
+          <input type="hidden" id="hack-form-id" />
+          <div class="admin-form__grid">
+            <div class="form-group" style="grid-column:span 2">
+              <label>Title *</label>
+              <input type="text" id="hf-title" class="form-input" required placeholder="HackIndia 2026" />
+            </div>
+            <div class="form-group">
+              <label>Organizer *</label>
+              <input type="text" id="hf-organizer" class="form-input" required placeholder="HackIndia Foundation" />
+            </div>
+            <div class="form-group">
+              <label>Theme</label>
+              <input type="text" id="hf-theme" class="form-input" placeholder="AI / ML" />
+            </div>
+            <div class="form-group">
+              <label>Mode *</label>
+              <select id="hf-mode" class="form-select">
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Difficulty</label>
+              <select id="hf-difficulty" class="form-select">
+                <option value="open">Open</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Prize Pool (text)</label>
+              <input type="text" id="hf-prize-pool" class="form-input" placeholder="₹50,00,000" />
+            </div>
+            <div class="form-group">
+              <label>Prize Amount (number)</label>
+              <input type="number" id="hf-prize-amount" class="form-input" placeholder="5000000" />
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Registration Link</label>
+              <input type="url" id="hf-reg-link" class="form-input" placeholder="https://example.com/register" />
+            </div>
+            <div class="form-group">
+              <label>Registration Deadline *</label>
+              <input type="datetime-local" id="hf-reg-end" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label>Hackathon Start</label>
+              <input type="datetime-local" id="hf-hack-start" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>Hackathon End</label>
+              <input type="datetime-local" id="hf-hack-end" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" id="hf-location" class="form-input" placeholder="Bengaluru, India" />
+            </div>
+            <div class="form-group">
+              <label>Min Team Size</label>
+              <input type="number" id="hf-min-team" class="form-input" value="1" min="1" max="10" />
+            </div>
+            <div class="form-group">
+              <label>Max Team Size</label>
+              <input type="number" id="hf-max-team" class="form-input" value="4" min="1" max="10" />
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Tags <span style="color:var(--clr-text-400);font-size:0.8rem">(comma separated)</span></label>
+              <input type="text" id="hf-tags" class="form-input" placeholder="AI, India, Students" />
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Description *</label>
+              <textarea id="hf-description" class="form-textarea" rows="4" required placeholder="Describe the hackathon…"></textarea>
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Eligibility</label>
+              <textarea id="hf-eligibility" class="form-textarea" rows="2" placeholder="Open to college students…"></textarea>
+            </div>
+            <div class="form-group" style="grid-column:span 2">
+              <label>Rules</label>
+              <textarea id="hf-rules" class="form-textarea" rows="2" placeholder="No plagiarism…"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="hf-status" class="form-select">
+                <option value="upcoming" selected>Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="ended">Ended</option>
+              </select>
+            </div>
+            <div class="form-group" style="align-self:flex-end">
+              <label class="filter-option" style="cursor:pointer;align-items:center">
+                <input type="checkbox" id="hf-featured" style="accent-color:var(--clr-cyan);width:16px;height:16px" />
+                Mark as Featured
+              </label>
+            </div>
+          </div>
+          <div id="hack-form-error" class="form-error hidden" style="margin-top:12px"></div>
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <button type="submit" class="btn btn--primary" id="hack-form-submit">
+              <span id="hack-form-submit-text">Add Hackathon</span>
+              <span class="spinner hidden" id="hack-form-spinner"></span>
+            </button>
+            <button type="button" class="btn btn--ghost" id="hack-form-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Submissions Panel (Unstop Feature) -->
+  <div id="asection-submissions" class="hidden">
+    <div style="padding:32px; max-width: 1200px; margin: 0 auto;">
+      <div class="dash-section__header" style="margin-bottom:20px">
+        <div>
+          <button class="btn btn--ghost btn--sm" id="admin-back-submissions" style="margin-bottom: 12px">← Back to Hackathons</button>
+          <h2 class="dash-section__title">Review Submissions</h2>
+          <p id="subs-hack-name" style="color:var(--clr-text-300)">Hackathon Name loading...</p>
+        </div>
+      </div>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Project Title</th>
+              <th>Repository</th>
+              <th>Demo</th>
+              <th>Submitted At</th>
+              <th>Score (/100)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-subs-tbody">
+            <tr><td colspan="7" style="text-align:center;color:var(--clr-text-400);padding:24px">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal-overlay" id="confirm-delete-modal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal__header">
+        <h3 class="modal__title" style="color:var(--clr-red)">Delete Hackathon</h3>
+        <button class="modal__close" id="close-delete-modal">×</button>
+      </div>
+      <div class="modal__body">
+        <p style="color:var(--clr-text-300)">Are you sure you want to delete <strong id="delete-hack-name" style="color:var(--clr-text-100)"></strong>? This action cannot be undone.</p>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="cancel-delete-btn">Cancel</button>
+        <button class="btn btn--danger" id="confirm-delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

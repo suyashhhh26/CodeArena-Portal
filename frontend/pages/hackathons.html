@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover and filter hackathons by theme, mode, prize pool, and deadline. Find your next challenge on CodeArena." />
+  <title>Discover Hackathons — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/hackathons.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena</a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html" class="active">Discover</a></li>
+      <li><a href="/pages/team-finder.html">Team Finder</a></li>
+      <li><a href="/pages/dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <a href="/pages/login.html" class="btn btn--ghost btn--sm" id="nav-login">Log In</a>
+      <a href="/pages/register.html" class="btn btn--primary btn--sm" id="nav-signup">Sign Up</a>
+    </div>
+    <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-header__label section-label">Explore</p>
+    <h1 class="page-header__title">Discover Hackathons</h1>
+    <p class="page-header__sub">Browse <span id="hack-total-count">...</span> hackathons across themes, modes, and prize pools.</p>
+  </div>
+
+  <div class="discover-layout">
+    <!-- ─── Filters Sidebar ─── -->
+    <aside class="filters-panel" id="filters-panel">
+      <div class="filters-panel__header">
+        <h3 style="font-size:0.9rem;">Filters</h3>
+        <button class="btn btn--ghost btn--sm" id="clear-filters-btn">Clear all</button>
+      </div>
+
+      <!-- Search -->
+      <div class="filter-group">
+        <label class="filter-label">Search</label>
+        <div style="position:relative">
+          <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--clr-text-400)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="filter-search" class="form-input" placeholder="Search hackathons..." style="padding-left:38px" />
+        </div>
+      </div>
+
+      <!-- Mode -->
+      <div class="filter-group">
+        <label class="filter-label">Mode</label>
+        <div class="filter-options">
+          <label class="filter-option"><input type="radio" name="mode" value="" checked /> All</label>
+          <label class="filter-option"><input type="radio" name="mode" value="online" /> 🌐 Online</label>
+          <label class="filter-option"><input type="radio" name="mode" value="offline" /> 📍 Offline</label>
+          <label class="filter-option"><input type="radio" name="mode" value="hybrid" /> 🔄 Hybrid</label>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="filter-group">
+        <label class="filter-label">Level</label>
+        <div class="filter-options">
+          <label class="filter-option"><input type="radio" name="difficulty" value="" checked /> All Levels</label>
+          <label class="filter-option"><input type="radio" name="difficulty" value="beginner" /> 🟢 Beginner</label>
+          <label class="filter-option"><input type="radio" name="difficulty" value="intermediate" /> 🟡 Intermediate</label>
+          <label class="filter-option"><input type="radio" name="difficulty" value="advanced" /> 🔴 Advanced</label>
+          <label class="filter-option"><input type="radio" name="difficulty" value="open" /> ⚪ Open</label>
+        </div>
+      </div>
+
+      <!-- Theme -->
+      <div class="filter-group">
+        <label class="filter-label">Theme</label>
+        <select id="filter-theme" class="form-select">
+          <option value="">All Themes</option>
+          <option value="AI">AI / ML</option>
+          <option value="Web3">Web3 / Blockchain</option>
+          <option value="FinTech">FinTech</option>
+          <option value="HealthTech">HealthTech</option>
+          <option value="Space">Space</option>
+          <option value="GovTech">GovTech</option>
+          <option value="Sustainability">Sustainability</option>
+          <option value="Social">Social Impact</option>
+        </select>
+      </div>
+
+      <!-- Min prize -->
+      <div class="filter-group">
+        <label class="filter-label">Min Prize Pool</label>
+        <select id="filter-prize" class="form-select">
+          <option value="">Any Prize</option>
+          <option value="0">Free / Swag only</option>
+          <option value="100000">₹1L+</option>
+          <option value="1000000">₹10L+</option>
+          <option value="5000000">₹50L+</option>
+          <option value="10000">$10K+ (USD)</option>
+          <option value="25000">$25K+ (USD)</option>
+        </select>
+      </div>
+
+      <button class="btn btn--primary btn--block" id="apply-filters-btn" style="margin-top:8px">Apply Filters</button>
+    </aside>
+
+    <!-- ─── Main Grid ─── -->
+    <main class="discover-main">
+      <div class="discover-toolbar">
+        <span class="discover-count">Showing <strong id="showing-count">0</strong> hackathons</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn--ghost btn--sm" id="mobile-filter-btn">⚙ Filters</button>
+          <select id="sort-select" class="form-select" style="width:auto;padding:8px 12px;font-size:0.8rem">
+            <option value="deadline">Deadline Soon</option>
+            <option value="prize">Highest Prize</option>
+            <option value="latest">Latest Added</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid--2" id="hackathons-grid">
+        <!-- Populated by hackathons.js -->
+        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div>
+        <div class="loading-skeleton"></div>
+      </div>
+
+      <div id="no-results" class="empty-state hidden">
+        <div class="empty-state__icon">🔍</div>
+        <h3 class="empty-state__title">No hackathons found</h3>
+        <p>Try adjusting your filters or search query.</p>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/hackathons.js"></script>
+</body>
+</html>

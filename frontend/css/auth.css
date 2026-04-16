@@ -1,0 +1,199 @@
+/* ═══════════════════════════════════════════════════════════════
+   CodeArena — Auth Pages CSS
+   ═══════════════════════════════════════════════════════════════ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background */
+.auth-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 30% 40%, rgba(0, 255, 225, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 70% 60%, rgba(168, 85, 247, 0.07) 0%, transparent 60%),
+    var(--clr-bg-900);
+  z-index: 0;
+}
+.auth-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 225, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 225, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  background: rgba(10, 15, 30, 0.85);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0,255,225,0.05);
+  animation: fadeInUp 0.5s ease;
+}
+
+.auth-card__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.auth-card__brand-name {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--clr-cyan);
+}
+
+.auth-card__title {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.auth-card__subtitle {
+  text-align: center;
+  color: var(--clr-text-400);
+  font-size: 0.875rem;
+  margin-bottom: 32px;
+}
+
+/* Form groups */
+.auth-card .form-group { margin-bottom: 18px; }
+
+/* Input icon wrapper */
+.input-icon-wrapper {
+  position: relative;
+}
+.input-icon-wrapper .form-input {
+  padding-left: 42px;
+}
+.input-icon-wrapper .input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-text-400);
+  pointer-events: none;
+}
+
+/* Password toggle */
+.input-wrapper {
+  position: relative;
+}
+.input-wrapper .form-input { padding-right: 44px; }
+.toggle-password {
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--clr-text-400);
+  padding: 4px;
+  transition: color var(--transition);
+}
+.toggle-password:hover { color: var(--clr-cyan); }
+
+/* Password strength */
+.strength-meter {
+  height: 3px;
+  background: var(--clr-bg-600);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.strength-meter__bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.4s ease, background 0.4s ease;
+}
+.strength-label {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+.strength-label.weak   .strength-meter__bar,
+.strength-label.weak   { color: var(--clr-red); }
+.strength-label.fair   { color: var(--clr-yellow); }
+.strength-label.strong { color: var(--clr-green); }
+
+/* Submit btn */
+.auth-card .btn--primary {
+  margin-top: 8px;
+  padding: 13px;
+  font-size: 0.95rem;
+}
+
+.auth-card__footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.875rem;
+  color: var(--clr-text-400);
+}
+.auth-card__footer a {
+  color: var(--clr-cyan);
+  font-weight: 600;
+  transition: opacity var(--transition);
+}
+.auth-card__footer a:hover { opacity: 0.8; }
+
+/* Divider w/ text */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--clr-text-500);
+  font-size: 0.8rem;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--clr-border);
+}
+
+/* Role boxes */
+.role-box {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  color: var(--clr-text-400);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: var(--clr-bg-800);
+}
+.role-option input:checked + .role-box {
+  border-color: var(--clr-cyan);
+  background: var(--clr-cyan-glow);
+  color: var(--clr-cyan);
+  box-shadow: 0 0 15px rgba(0, 255, 225, 0.1);
+}
+.role-box:hover {
+  border-color: rgba(0, 255, 225, 0.4);
+  color: var(--clr-text-100);
+}
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }

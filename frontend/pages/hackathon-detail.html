@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Full hackathon details — timeline, prize pool, eligibility, rules, and registration link." />
+  <title>Hackathon Details — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/detail.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena</a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html" class="active">Discover</a></li>
+      <li><a href="/pages/team-finder.html">Team Finder</a></li>
+      <li><a href="/pages/dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <a href="/pages/login.html" class="btn btn--ghost btn--sm" id="nav-login">Log In</a>
+      <a href="/pages/register.html" class="btn btn--primary btn--sm" id="nav-signup">Sign Up</a>
+    </div>
+    <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <!-- Loading State -->
+  <div id="detail-loading" class="detail-loading">
+    <div class="spinner" style="width:40px;height:40px;border-width:3px;color:var(--clr-cyan)"></div>
+  </div>
+
+  <!-- Main Detail Content -->
+  <div id="detail-content" class="detail-page hidden">
+
+    <!-- Hero Banner -->
+    <div class="detail-hero" id="detail-hero">
+      <div class="detail-hero__overlay"></div>
+      <div class="detail-hero__content">
+        <a href="/pages/hackathons.html" class="detail-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Discover
+        </a>
+        <div class="detail-hero__badges" id="detail-badges"></div>
+        <h1 class="detail-hero__title" id="detail-title">Loading...</h1>
+        <p class="detail-hero__organizer" id="detail-organizer"></p>
+        <div class="detail-hero__actions">
+          <button class="btn btn--primary btn--lg" id="detail-register-btn">Register Now →</button>
+          <button class="btn btn--ghost" id="detail-save-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+            Save Hackathon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <!-- Left: main info -->
+      <div class="detail-main">
+
+        <!-- Countdown -->
+        <div class="detail-countdown-card" id="detail-countdown-card">
+          <div class="detail-countdown-card__label" id="detail-countdown-label">Registration closes in</div>
+          <div class="detail-countdown-card__timer" id="detail-countdown-timer"></div>
+          <div class="detail-countdown-card__date" id="detail-countdown-date"></div>
+        </div>
+
+        <!-- Description -->
+        <section class="detail-section">
+          <h2 class="detail-section__title">About this Hackathon</h2>
+          <p class="detail-section__text" id="detail-description"></p>
+        </section>
+
+        <!-- Eligibility -->
+        <section class="detail-section" id="detail-eligibility-sec">
+          <h2 class="detail-section__title">Eligibility</h2>
+          <p class="detail-section__text" id="detail-eligibility"></p>
+        </section>
+
+        <!-- Rules -->
+        <section class="detail-section" id="detail-rules-sec">
+          <h2 class="detail-section__title">Rules &amp; Guidelines</h2>
+          <div class="detail-section__text" id="detail-rules"></div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="detail-section">
+          <h2 class="detail-section__title">Timeline</h2>
+          <div class="timeline" id="detail-timeline"></div>
+        </section>
+
+        <!-- Submission Section (Unstop Feature) -->
+        <section class="detail-section" id="detail-submission-sec">
+          <div style="background:#f8fafc; padding:24px; border-radius:12px; border:1px solid #e2e8f0;">
+            <h2 class="detail-section__title" style="margin-top:0; margin-bottom:8px;">Submit Your Project</h2>
+            <p style="color:var(--clr-text-400); margin-bottom:16px; font-size:0.9rem;">Registered participants can submit their project links below.</p>
+            <form id="submission-form" style="display:flex; flex-direction:column; gap:12px;">
+              <input type="text" id="sub-title" class="form-input" placeholder="Project Title" required />
+              <input type="url" id="sub-repo" class="form-input" placeholder="GitHub Repository URL (e.g. https://github.com/...)" required />
+              <input type="url" id="sub-demo" class="form-input" placeholder="Live Demo URL (Optional)" />
+              <textarea id="sub-desc" class="form-input" placeholder="Briefly describe what you built..." rows="4" required></textarea>
+              <button type="submit" class="btn btn--primary" id="submit-proj-btn">Submit Solution</button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right: sidebar info -->
+      <aside class="detail-sidebar">
+
+        <!-- Quick info card -->
+        <div class="detail-info-card">
+          <h3 class="detail-info-card__title">Quick Info</h3>
+          <div class="detail-info-list" id="detail-info-list"></div>
+        </div>
+
+        <!-- Prize card -->
+        <div class="detail-prize-card" id="detail-prize-card">
+          <div class="detail-prize-card__label">Prize Pool</div>
+          <div class="detail-prize-card__amount" id="detail-prize"></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="detail-info-card" id="detail-tags-card">
+          <h3 class="detail-info-card__title">Tags</h3>
+          <div class="detail-tags" id="detail-tags"></div>
+        </div>
+
+        <!-- CTA -->
+        <button class="btn btn--primary btn--block btn--lg" id="detail-register-internal-btn" style="margin-bottom:8px;">
+          Register Now (CodeArena)
+        </button>
+        <a class="btn btn--ghost btn--block btn--lg" id="detail-register-link" href="#" target="_blank" rel="noopener">
+          External Site →
+        </a>
+        <p style="text-align:center;font-size:0.78rem;color:var(--clr-text-400);margin-top:8px">Register to participate and submit projects.</p>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div id="detail-error" class="empty-state hidden" style="padding-top:160px">
+    <div class="empty-state__icon">⚠️</div>
+    <h3 class="empty-state__title">Hackathon not found</h3>
+    <p>This hackathon may have been removed or the link is invalid.</p>
+    <a href="/pages/hackathons.html" class="btn btn--primary" style="margin-top:16px">Browse Hackathons</a>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/hackathon-detail.js"></script>
+  <script src="/js/unstop.js"></script>
+</body>
+</html>

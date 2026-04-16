@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your CodeArena dashboard — saved hackathons, upcoming deadlines, team activity, and recommendations." />
+  <title>Dashboard — CodeArena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="/pages/index.html" class="navbar__brand"><span>&lt;/&gt;</span> CodeArena</a>
+    <ul class="navbar__links" id="navbar-links">
+      <li><a href="/pages/hackathons.html">Discover</a></li>
+      <li><a href="/pages/team-finder.html">Team Finder</a></li>
+      <li><a href="/pages/dashboard.html" class="active">Dashboard</a></li>
+    </ul>
+    <div class="navbar__actions" id="navbar-actions">
+      <a href="/pages/login.html" class="btn btn--ghost btn--sm" id="nav-login">Log In</a>
+      <a href="/pages/register.html" class="btn btn--primary btn--sm" id="nav-signup">Sign Up</a>
+    </div>
+    <button class="navbar__mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <!-- Auth gate -->
+  <div id="auth-gate" class="empty-state hidden" style="padding-top:180px">
+    <div class="empty-state__icon">🔐</div>
+    <h3 class="empty-state__title">Sign in to access your dashboard</h3>
+    <p>Track saved hackathons, manage team posts, and view deadlines.</p>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:20px">
+      <a href="/pages/login.html" class="btn btn--primary">Log In</a>
+      <a href="/pages/register.html" class="btn btn--ghost">Sign Up Free</a>
+    </div>
+  </div>
+
+  <div class="dashboard-layout" id="dashboard-layout">
+
+    <!-- ─── Sidebar ───────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__profile">
+        <div class="sidebar__avatar" id="sidebar-avatar">?</div>
+        <div>
+          <div class="sidebar__name" id="sidebar-name">Loading…</div>
+          <div class="sidebar__role" id="sidebar-role">Member</div>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <span class="sidebar__section-label">Overview</span>
+        <a href="#saved" class="sidebar__link active" id="tab-saved">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+          Saved Hackathons
+          <span class="badge badge--cyan" id="saved-count-badge">0</span>
+        </a>
+        <a href="#registrations" class="sidebar__link" id="tab-registrations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          My Hackathons
+          <span class="badge badge--green" id="stat-registrations-badge" style="display:none">0</span>
+        </a>
+        <a href="#deadlines" class="sidebar__link" id="tab-deadlines">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Upcoming Deadlines
+        </a>
+        <a href="#recommendations" class="sidebar__link" id="tab-recommendations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Recommendations
+        </a>
+
+        <span class="sidebar__section-label">Teams</span>
+        <a href="#my-posts" class="sidebar__link" id="tab-my-posts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          My Team Posts
+        </a>
+        <a href="#my-requests" class="sidebar__link" id="tab-my-requests">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          My Requests
+        </a>
+        <a href="#incoming" class="sidebar__link" id="tab-incoming">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Incoming Requests
+          <span class="badge badge--purple" id="incoming-count-badge" style="display:none">0</span>
+        </a>
+
+        <span class="sidebar__section-label">Account</span>
+        <a href="#profile" class="sidebar__link" id="tab-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Edit Profile
+        </a>
+        <button class="sidebar__link" id="logout-btn" style="background:none;border:none;width:100%;text-align:left;color:var(--clr-red)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Log Out
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ─── Main Content ───────────────────────────────────── -->
+    <main class="dashboard-main">
+
+      <!-- Stats Row -->
+      <div class="stat-cards" id="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card__label">Saved Events</div>
+          <div class="stat-card__value cyan" id="stat-saved">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Registered</div>
+          <div class="stat-card__value green" id="stat-registrations">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Upcoming Deadlines</div>
+          <div class="stat-card__value purple" id="stat-deadlines">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Team Posts</div>
+          <div class="stat-card__value" id="stat-posts">—</div>
+        </div>
+      </div>
+
+      <!-- ── Registered Hackathons ── -->
+      <div class="dash-section" id="section-registrations">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">My Registered Hackathons</h2>
+          <a href="/pages/hackathons.html" class="btn btn--ghost btn--sm">Participate More →</a>
+        </div>
+        <div id="registrations-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── Saved Hackathons ── -->
+      <div class="dash-section" id="section-saved">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">Saved Hackathons</h2>
+          <a href="/pages/hackathons.html" class="btn btn--ghost btn--sm">+ Discover More</a>
+        </div>
+        <div id="saved-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── Upcoming Deadlines ── -->
+      <div class="dash-section" id="section-deadlines">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">Upcoming Deadlines</h2>
+        </div>
+        <div id="deadlines-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── Recommendations ── -->
+      <div class="dash-section" id="section-recommendations">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">Recommended for You</h2>
+        </div>
+        <div class="grid grid--2" id="recommendations-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── My Team Posts ── -->
+      <div class="dash-section" id="section-my-posts">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">My Team Posts</h2>
+          <a href="/pages/team-finder.html" class="btn btn--primary btn--sm">+ New Post</a>
+        </div>
+        <div id="my-posts-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── My Requests ── -->
+      <div class="dash-section" id="section-my-requests">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">My Join Requests</h2>
+        </div>
+        <div id="my-requests-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── Incoming Requests ── -->
+      <div class="dash-section" id="section-incoming">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">Incoming Team Requests</h2>
+        </div>
+        <div id="incoming-list">
+          <div class="loading-placeholder">Loading…</div>
+        </div>
+      </div>
+
+      <!-- ── Edit Profile ── -->
+      <div class="dash-section" id="section-profile">
+        <div class="dash-section__header">
+          <h2 class="dash-section__title">Edit Profile</h2>
+        </div>
+        <form class="card" id="profile-form" style="max-width:560px">
+          <div style="display:grid; gap:18px; grid-template-columns: 1fr 1fr;">
+            <div class="form-group">
+              <label>College / University</label>
+              <input type="text" id="profile-college" class="form-input" placeholder="e.g. IIT Delhi" />
+            </div>
+            <div class="form-group">
+              <label>Skills (comma separated)</label>
+              <input type="text" id="profile-skills" class="form-input" placeholder="e.g. React, Node.js, Python" />
+            </div>
+            <div class="form-group" style="grid-column: span 2">
+              <label>Interests / Goals</label>
+              <input type="text" id="profile-interests" class="form-input" placeholder="e.g. Looking for AI/ML projects" />
+            </div>
+            <div class="form-group" style="grid-column: span 2">
+              <label>Professional Bio</label>
+              <textarea id="profile-bio" class="form-textarea" rows="3" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>GitHub Profile</label>
+              <input type="url" id="profile-github" class="form-input" placeholder="https://github.com/username" />
+            </div>
+            <div class="form-group">
+              <label>Resume Link (Google Drive/Dropbox)</label>
+              <input type="url" id="profile-resume" class="form-input" placeholder="https://drive.google.com/..." />
+            </div>
+          </div>
+          
+          <div id="profile-msg" style="margin-top:12px"></div>
+          <button type="submit" class="btn btn--primary" id="profile-save-btn" style="margin-top:20px">
+            <span>Save Profile</span>
+            <span class="spinner hidden" id="profile-spinner"></span>
+          </button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

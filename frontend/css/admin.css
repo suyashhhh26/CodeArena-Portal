@@ -1,0 +1,22 @@
+/* ═══════════════════════════════════════════════════════════════
+   CodeArena — Admin Page Extra CSS
+   ═══════════════════════════════════════════════════════════════ */
+
+.admin-form {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 860px;
+}
+.admin-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.filter-option { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--clr-text-200); }
+
+@media (max-width: 600px) {
+  .admin-form__grid { grid-template-columns: 1fr; }
+  .admin-form__grid .form-group[style*="grid-column:span 2"] { grid-column: span 1; }
+}
